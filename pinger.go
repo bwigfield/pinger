@@ -14,8 +14,6 @@ import (
 	"golang.org/x/net/icmp"
 	"golang.org/x/net/ipv4"
 	"golang.org/x/net/ipv6"
-
-	"github.com/bwigfield/pinger/pinger/internal"
 )
 
 type Result struct {
@@ -33,7 +31,7 @@ type pingMeta struct {
 type Pinger struct {
 	ctx     context.Context
 	cancel  context.CancelFunc
-	cm      *internal.ConnManager
+	cm      *ConnManager
 	results chan<- Result
 	timeout time.Duration
 	wg      sync.WaitGroup
@@ -51,7 +49,7 @@ type Pinger struct {
 
 func NewPinger(parent context.Context, results chan<- Result, timeout time.Duration) *Pinger {
 	ctx, cancel := context.WithCancel(parent)
-	cm := internal.NewConnManager(ctx)
+	cm := NewConnManager(ctx)
 	p := &Pinger{
 		ctx:         ctx,
 		cancel:      cancel,

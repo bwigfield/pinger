@@ -1,5 +1,4 @@
-// pinger/internal/connection.go
-package internal
+package pinger
 
 import (
 	"context"
